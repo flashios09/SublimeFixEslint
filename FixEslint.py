@@ -4,6 +4,10 @@ import os
 import sublime_plugin
 
 
+def plugin_loaded():
+    pref.load()
+
+
 class Pref:
     keys = [
         "node_executable_path",
@@ -15,7 +19,9 @@ class Pref:
         self.settings = sublime.load_settings('FixEslint.sublime-settings')
 
         for key in self.keys:
+            self.settings.clear_on_change(key)
             setattr(self, key, self.settings.get(key))
+            self.settings.add_on_change(key, pref.load)
 
 
 pref = Pref()
