@@ -1,0 +1,5 @@
+{
+    "node_executable_path" : "/usr/local/bin/node",
+    "eslint_executable_path" : "/usr/local/bin/eslint_d",
+    "extensions_to_execute" : [".js", ".ts", ".vue"]
+}
