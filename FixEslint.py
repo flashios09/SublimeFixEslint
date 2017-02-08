@@ -17,7 +17,6 @@ class Pref:
 
     def load(self):
         self.settings = sublime.load_settings('FixEslint.sublime-settings')
-
         for key in self.keys:
             self.settings.clear_on_change(key)
             setattr(self, key, self.settings.get(key))
@@ -33,8 +32,9 @@ class FixEslintEventListener(sublime_plugin.EventListener):
         file_name = view.file_name()
         file_extension = os.path.splitext(file_name)[1]
         if file_extension in pref.extensions_to_execute:
+            print("FixEslint" + file_name)
             subprocess.Popen(
-                [pref.node_executable_path, pref.eslint_executable_path, '--fix', file_name],
+                [pref.node_executable_path, pref.eslint_executable_path, file_name, '--fix'],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT
